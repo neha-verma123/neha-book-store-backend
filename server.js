@@ -29,7 +29,7 @@ const bookRoute = require("./routes/book.route");
 app.use("/api/books", bookRoute);
 
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+  res.send("Server start");
 });
 
 const server = http.createServer(app);
