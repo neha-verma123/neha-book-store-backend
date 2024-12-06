@@ -4,11 +4,11 @@ const path = require("path");
 const fs = require("fs");
 
 // Middleware to ensure directories exist
-const ensureDirectoryExists = (folderName) => {
-  if (!fs.existsSync(folderName)) {
-    fs.mkdirSync(folderName, { recursive: true });
-  }
-};
+// const ensureDirectoryExists = (folderName) => {
+//   if (!fs.existsSync(folderName)) {
+//     fs.mkdirSync(folderName, { recursive: true });
+//   }
+// };
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     }
 
     // Ensure the directory exists
-    ensureDirectoryExists(folderName);
+    // ensureDirectoryExists(folderName);
 
     cb(null, folderName);
   },
