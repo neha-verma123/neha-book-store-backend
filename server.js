@@ -10,13 +10,20 @@ const db = require("./models/index");
 const http = require("http");
 const server = http.createServer(app);
 
+var corsOption = {
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  // credentials: true,
+  exposedHeaders: ["x-access-token"],
+};
+
+app.use(cors(corsOption));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/uploads", express.static(join(__dirname, "uploads")));
 app.disable("x-powered-by");
 db();
-app.use(cors());
 
 const bookRoute = require("./routes/book.route");
 
