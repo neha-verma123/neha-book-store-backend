@@ -84,7 +84,7 @@ module.exports = {
 
       let updatedData = { title, category, price, description };
       if (req.file) {
-        updatedData.image = req.file.path;
+        updatedData.image = req.file.filename;
       }
 
       const updatedBook = await BookStore.findByIdAndUpdate(
