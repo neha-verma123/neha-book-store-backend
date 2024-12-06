@@ -3,6 +3,12 @@ const uuidv4 = require("uuid").v4;
 const path = require("path");
 const fs = require("fs");
 
+const ensureDirectoryExists = (folderName) => {
+  if (!fs.existsSync(folderName)) {
+    fs.mkdirSync(folderName, { recursive: true });
+  }
+};
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const imageExtList = ["png", "jpeg", "jpg", "gif"];
@@ -13,6 +19,9 @@ const storage = multer.diskStorage({
     if (imageExtList.includes(extension)) {
       folderName = path.join(__dirname, "../uploads/");
     }
+
+    // Ensure the directory exists
+    ensureDirectoryExists(folderName);
 
     cb(null, folderName);
   },
