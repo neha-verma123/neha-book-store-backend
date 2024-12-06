@@ -49,8 +49,7 @@ module.exports = {
   viewBook: async (req, res) => {
     try {
       const { id } = req.params;
-
-      const bookRecord = await BookStore.findById(id);
+      const bookRecord = await BookStore.findById({ _id: id });
 
       if (!bookRecord) {
         return res
@@ -58,7 +57,6 @@ module.exports = {
           .json(responseData("Book not found.", null, req, false));
       }
 
-      console.log("bookRecord", bookRecord);
       return res
         .status(200)
         .json(
