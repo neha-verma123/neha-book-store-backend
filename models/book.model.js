@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
 function imageURL(image) {
-  const baseURL = `http://192.168.29.190:4200/`; // Base URL
+  const baseURL = `http://192.168.29.190:4200/`;
   // https://neha-book-store-backend.onrender.com/
   if (image) {
-    const normalizedImagePath = image.replace(/\\/g, "/");
-    return `${baseURL}${normalizedImagePath.replace(/^uploads\//, "")}`;
+    return `${baseURL}uploads/${image}`;
   }
   return `${baseURL}no_image.png`;
 }

@@ -8,7 +8,7 @@ module.exports = {
 
       let imagePath = null;
       if (req.file) {
-        imagePath = req.file.path;
+        imagePath = req.file.filename;
       }
 
       const newBook = new BookStore({
