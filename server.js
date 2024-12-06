@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 3000;
 const { dirname, join } = require("path");
 const db = require("./models/index");
 const http = require("http");
-const server = http.createServer(app);
 
 var corsOption = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -33,6 +32,7 @@ app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
+const server = http.createServer(app);
 server.listen(PORT, () => {
   console.log(`Application is run on ${PORT} port number.`);
 });
