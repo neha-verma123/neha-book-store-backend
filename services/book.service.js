@@ -4,7 +4,7 @@ const { responseData } = require("../helpers/responseData");
 module.exports = {
   addBook: async (req, res) => {
     try {
-      const { title, category, subDescription, description } = req.body;
+      const { title, category, price, description } = req.body;
 
       let imagePath = null;
       if (req.file) {
@@ -14,12 +14,12 @@ module.exports = {
       const newBook = new BookStore({
         title,
         category,
-        subDescription,
+        price,
         description,
         image: imagePath,
       });
       const newBookRecord = await BookStore.create(newBook);
-      console.log("newMaritalRecord", newMaritalRecord);
+      console.log("newBookRecord", newBookRecord);
       return res.json(
         responseData("Book added successfully.", newBookRecord, req, true)
       );
@@ -75,7 +75,7 @@ module.exports = {
   editBook: async (req, res) => {
     try {
       const { id } = req.params;
-      const { title, category, subDescription, description } = req.body;
+      const { title, category, price, description } = req.body;
 
       const book = await BookStore.findById(id);
       if (!book) {
@@ -84,7 +84,7 @@ module.exports = {
           .json(responseData("Book not found.", null, req, false));
       }
 
-      let updatedData = { title, category, subDescription, description };
+      let updatedData = { title, category, price, description };
       if (req.file) {
         updatedData.image = req.file.path;
       }

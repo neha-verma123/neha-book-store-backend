@@ -14,6 +14,7 @@ app.use(morgan("dev"));
 app.use("/uploads", express.static(join(__dirname, "uploads")));
 app.disable("x-powered-by");
 db();
+app.use(cors());
 
 const bookRoute = require("./routes/book.route");
 

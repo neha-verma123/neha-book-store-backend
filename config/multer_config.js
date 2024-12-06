@@ -1,6 +1,14 @@
 const multer = require("multer");
 const uuidv4 = require("uuid").v4;
 const path = require("path");
+const fs = require("fs");
+
+// Middleware to ensure directories exist
+const ensureDirectoryExists = (folderName) => {
+  if (!fs.existsSync(folderName)) {
+    fs.mkdirSync(folderName, { recursive: true });
+  }
+};
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -21,16 +29,19 @@ const storage = multer.diskStorage({
       "csv",
     ];
 
-    let folderName = "uploads/default/"; // Fallback to default
+    let folderName = path.join(__dirname, "../uploads/default/");
     const extension = path.extname(file.originalname).toLowerCase().slice(1);
 
     if (imageExtList.includes(extension)) {
-      folderName = "uploads/images/";
+      folderName = path.join(__dirname, "../uploads/images/");
     } else if (audioVideoExtList.includes(extension)) {
-      folderName = "uploads/audio_video/";
+      folderName = path.join(__dirname, "../uploads/audio_video/");
     } else if (documentExtList.includes(extension)) {
-      folderName = "uploads/documents/";
+      folderName = path.join(__dirname, "../uploads/documents/");
     }
+
+    // Ensure the directory exists
+    ensureDirectoryExists(folderName);
 
     cb(null, folderName);
   },
